@@ -14,12 +14,11 @@ class CategorieController extends AbstractController
     /**
      * @Route("/categorie", name="categorie")
      */
-    public function index()
+    public function ListeCategorie()
     
     {
 
         $categories = $this->getDoctrine()->getRepository(Categorie::class)->findAll();
-
     
         $data =  $this->get('serializer')->serialize($categories, 'json');
         
