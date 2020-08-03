@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 header("Access-Control-Allow-Origin: *");
+use DateTime;
 use App\Entity\User;
 use App\Entity\Niveau;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UsersController extends AbstractController
@@ -38,36 +41,96 @@ class UsersController extends AbstractController
 
 
     /**
-     * @Route("/users/create", name="createUtilisateur")
+     * @Route("/user/create", name="createUtilisateur", methods={"POST"})
      */
 
-    public function createUtilisateur() :response
+    public function createUtilisateur(Request $request) :response
     
     {
+        $donnees = json_decode($request->getContent());
+
+        if (!empty($donnees)) {
+
 
         $entityManager = $this->getDoctrine()->getManager();
-
         $utilisateurs = new User();
-        $utilisateurs->setPrenom('Keyboard');
-        $utilisateurs->setNom(1999);
-        $utilisateurs->setMatricule(1999);
-        $utilisateurs->setPassword(1999);
-        $utilisateurs->setStatut(1999);
-        $utilisateurs->setTitulaire(1999);
-        $utilisateurs->setResponsable(1999);
-        $utilisateurs->setDateembauche(1999);
-        $utilisateurs->setActive(1999);
-        $utilisateurs->setIdcategorie(1999);
-        $utilisateurs->setIdniveau(1999);
-        $utilisateurs->setPhoto(1999);
-
-
+        $utilisateurs->setPrenom($donnees->{'prenom'});
+        $utilisateurs->setNom($donnees->{'nom'});
+        $utilisateurs->setMatricule($donnees->{'matricule'});
+        $utilisateurs->setPassword($donnees->{'password'});
+        $utilisateurs->setStatut($donnees->{'statut'});
+        $utilisateurs->setTitulaire($donnees->{'titulaire'});
+        $utilisateurs->setResponsable($donnees->{'responsable'});
+        $utilisateurs->setDateembauche(new \DateTime($donnees->{'dateembauche'}) );
+        $utilisateurs->setActive($donnees->{'active'});
+        $utilisateurs->setIdcategorie($donnees->{'idcategorie'});
+        $utilisateurs->setIdniveau($donnees->{'idniveau'});
+        $utilisateurs->setPhoto($donnees->{'photo'});
         $entityManager->persist($utilisateurs);
 
         $entityManager->flush();
-
-        return new Response('Saved new product with id '.$utilisateurs->getId());
+              
+        return new Response('ok', 201);
+    }
+     
+    return new Response('Failed', 404);
+  
     }
 
+    /**
+    * @Route("/user/editer/{id}", name="editUser", methods={"PUT"})
+    */
+    public function editUser($id,Request $request)
+    {
+ 
+        $donnees = json_decode($request->getContent());
+
+        if (!empty($donnees)) {
+
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $utilisateurs = $entityManager->getRepository(user::class)->find($id);
     
+        if (!$utilisateurs) {
+            throw $this->createNotFoundException(
+                'No user found for id '.$id
+            );
+        }
+    
+        
+        $utilisateurs->setPrenom($donnees->{'prenom'});
+        $utilisateurs->setNom($donnees->{'nom'});
+        $utilisateurs->setMatricule($donnees->{'matricule'});
+        $utilisateurs->setPassword($donnees->{'password'});
+        $utilisateurs->setStatut($donnees->{'statut'});
+        $utilisateurs->setTitulaire($donnees->{'titulaire'});
+        $utilisateurs->setResponsable($donnees->{'responsable'});
+        $utilisateurs->setDateembauche(new \DateTime($donnees->{'dateembauche'}) );
+        $utilisateurs->setActive($donnees->{'active'});
+        $utilisateurs->setIdcategorie($donnees->{'idcategorie'});
+        $utilisateurs->setIdniveau($donnees->{'idniveau'});
+        $utilisateurs->setPhoto($donnees->{'photo'});
+
+        $entityManager->flush();
+    
+        return new Response('ok');
+
+        }
+
+}
+
+
+
+    /**
+    * @Route("/user/delete/{id}", name="delete", methods={"DELETE"})
+    */
+    public function removeArticle(user $utilisateurs)
+    {
+    $entityManager = $this->getDoctrine()->getManager();
+    $entityManager->remove($utilisateurs);
+    $entityManager->flush();
+    return new Response('ok');
+    }
+
+     
 }
