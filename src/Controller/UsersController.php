@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 class UsersController extends AbstractController
 {
     /**
@@ -78,11 +78,12 @@ class UsersController extends AbstractController
     }
 
     /**
-    * @Route("/user/editer/{id}", name="editUser", methods={"PUT"})
+    * @Route("/user/editer/{id}", name="editer")
+    * @Method({"PUT"})
     */
-    public function editUser($id,Request $request)
+    public function editer($id,Request $request)
     {
- 
+
         $donnees = json_decode($request->getContent());
 
         if (!empty($donnees)) {
