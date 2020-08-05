@@ -51,12 +51,7 @@ class User
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $titulaire;
-
-    /**
-     * @ORM\Column(type="binary", nullable=true)
-     */
-    private $photo;
-
+    
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
@@ -162,18 +157,6 @@ class User
     public function setTitulaire(?bool $titulaire): self
     {
         $this->titulaire = $titulaire;
-
-        return $this;
-    }
-
-    public function getPhoto()
-    {
-        return $this->photo;
-    }
-
-    public function setPhoto($photo): self
-    {
-        $this->photo = $photo;
 
         return $this;
     }

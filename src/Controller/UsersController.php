@@ -5,18 +5,23 @@ header("Access-Control-Allow-Origin: *");
 use DateTime;
 use App\Entity\User;
 use App\Entity\Niveau;
+use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Date;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 class UsersController extends AbstractController
 {
     /**
-     * @Route("/users", name="getutilisateurs")
+     * @Route("/users", name="users")
+     * @Method({"GET"})
      */
-    public function getutilisateurs()
+    public function users()
     
     {
 
@@ -29,14 +34,16 @@ class UsersController extends AbstractController
             'data'=> $utilisateurs 
 
          ];
+     
 
-        $data =  $this->get('serializer')->serialize($parametrs, 'json');
-        
+        $data =  $this->get('serializer')->serialize($parametrs, 'json');  
+   
         $response = new Response($data);
 
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;
+
     }
 
 
@@ -65,7 +72,6 @@ class UsersController extends AbstractController
         $utilisateurs->setActive($donnees->{'active'});
         $utilisateurs->setIdcategorie($donnees->{'idcategorie'});
         $utilisateurs->setIdniveau($donnees->{'idniveau'});
-        $utilisateurs->setPhoto($donnees->{'photo'});
         $entityManager->persist($utilisateurs);
 
         $entityManager->flush();
@@ -110,7 +116,7 @@ class UsersController extends AbstractController
         $utilisateurs->setActive($donnees->{'active'});
         $utilisateurs->setIdcategorie($donnees->{'idcategorie'});
         $utilisateurs->setIdniveau($donnees->{'idniveau'});
-        $utilisateurs->setPhoto($donnees->{'photo'});
+    
 
         $entityManager->flush();
     

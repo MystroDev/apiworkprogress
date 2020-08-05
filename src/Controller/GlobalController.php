@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class GlobalController extends AbstractController
 {
     /**
-     * @Route("/global", name="global")
+     * @Route("/globals", name="globals")
      */
     public function index()
     {
