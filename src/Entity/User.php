@@ -38,7 +38,7 @@ class User
     private $password;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $dateembauche;
 
@@ -125,12 +125,12 @@ class User
         return $this;
     }
 
-    public function getDateembauche(): ?\DateTimeInterface
+    public function getDateembauche(): ?string
     {
         return $this->dateembauche;
     }
 
-    public function setDateembauche(?\DateTimeInterface $dateembauche): self
+    public function setDateembauche(?string $dateembauche): self
     {
         $this->dateembauche = $dateembauche;
 

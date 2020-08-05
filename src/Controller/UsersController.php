@@ -68,7 +68,7 @@ class UsersController extends AbstractController
         $utilisateurs->setStatut($donnees->{'statut'});
         $utilisateurs->setTitulaire($donnees->{'titulaire'});
         $utilisateurs->setResponsable($donnees->{'responsable'});
-        $utilisateurs->setDateembauche(new \DateTime($donnees->{'dateembauche'}) );
+        $utilisateurs->setDateembauche(new \Date($donnees->{'dateembauche'}) );
         $utilisateurs->setActive($donnees->{'active'});
         $utilisateurs->setIdcategorie($donnees->{'idcategorie'});
         $utilisateurs->setIdniveau($donnees->{'idniveau'});
@@ -112,7 +112,7 @@ class UsersController extends AbstractController
         $utilisateurs->setStatut($donnees->{'statut'});
         $utilisateurs->setTitulaire($donnees->{'titulaire'});
         $utilisateurs->setResponsable($donnees->{'responsable'});
-        $utilisateurs->setDateembauche(new \DateTime($donnees->{'dateembauche'}) );
+        $utilisateurs->setDateembauche(new \Date($donnees->{'dateembauche'}) );
         $utilisateurs->setActive($donnees->{'active'});
         $utilisateurs->setIdcategorie($donnees->{'idcategorie'});
         $utilisateurs->setIdniveau($donnees->{'idniveau'});
