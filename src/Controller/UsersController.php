@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 header("Access-Control-Allow-Origin: *");
+
 use DateTime;
 use App\Entity\User;
 use App\Entity\Niveau;
@@ -9,7 +10,7 @@ use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Constraints\Date;
+
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
@@ -68,7 +69,7 @@ class UsersController extends AbstractController
         $utilisateurs->setStatut($donnees->{'statut'});
         $utilisateurs->setTitulaire($donnees->{'titulaire'});
         $utilisateurs->setResponsable($donnees->{'responsable'});
-        $utilisateurs->setDateembauche(new \Date($donnees->{'dateembauche'}) );
+        $utilisateurs->setDateembauche($donnees->{'dateembauche'} );
         $utilisateurs->setActive($donnees->{'active'});
         $utilisateurs->setIdcategorie($donnees->{'idcategorie'});
         $utilisateurs->setIdniveau($donnees->{'idniveau'});
