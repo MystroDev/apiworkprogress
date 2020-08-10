@@ -130,7 +130,7 @@ class UsersController extends AbstractController
 
 
     /**
-    * @Route("/user/delete/{id}", name="delete", methods={"DELETE"})
+    * @Route("/user/delete/{id}", name="delete", methods={"POST"})
     */
     public function removeArticle(user $utilisateurs)
     {
